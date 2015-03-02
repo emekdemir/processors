@@ -56,6 +56,13 @@ class TextBoundMention(val label: String,
 
   // TextBoundMentions don't have arguments
   val arguments: Map[String, Seq[Mention]] = Map.empty
+
+  override def canEqual(a: Any) = a.isInstanceOf[TextBoundMention]
+
+  override def equals(that: Any): Boolean = that match {
+    case that: TextBoundMention => that.canEqual(this) && this.label == that.label && this.tokenInterval.allenEquals(that.tokenInterval)
+    case _ => false
+  }
 }
 
 class EventMention(val label: String,
@@ -70,5 +77,12 @@ class EventMention(val label: String,
     val allStarts = trigger.start +: arguments.values.flatMap(_.map(_.start)).toSeq
     val allEnds = trigger.end +: arguments.values.flatMap(_.map(_.end)).toSeq
     Interval(allStarts.min, allEnds.max)
+  }
+
+  override def canEqual(a: Any) = a.isInstanceOf[EventMention]
+
+  override def equals(that: Any): Boolean = that match {
+    case that: EventMention => that.canEqual(this) && this.arguments == that.arguments && this.trigger == that.trigger
+    case _ => false
   }
 }
