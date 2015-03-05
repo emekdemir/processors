@@ -59,10 +59,6 @@ class TextBoundMention(val label: String,
 
   override def canEqual(a: Any) = a.isInstanceOf[TextBoundMention]
 
-  override def equals(that: Any): Boolean = that match {
-    case that: TextBoundMention => that.canEqual(this) && this.label == that.label && this.tokenInterval.allenEquals(that.tokenInterval)
-    case _ => false
-  }
 }
 
 class EventMention(val label: String,
@@ -81,8 +77,4 @@ class EventMention(val label: String,
 
   override def canEqual(a: Any) = a.isInstanceOf[EventMention]
 
-  override def equals(that: Any): Boolean = that match {
-    case that: EventMention => that.canEqual(this) && this.arguments == that.arguments && this.trigger == that.trigger
-    case _ => false
-  }
 }
