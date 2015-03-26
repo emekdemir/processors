@@ -1,33 +1,28 @@
-package edu.arizona.sista.odin
+package edu.arizona.sista.odin.domains.toydomain
 
-import edu.arizona.sista.struct.Interval
-import edu.arizona.sista.processors.Document
 import edu.arizona.sista.processors.bionlp.BioNLPProcessor
 import edu.arizona.sista.odin._
 
-object TestMatcher extends App {
-  // two example sentences with manually defined named entity tags in IOB notation
-  val sentence0 = "TGFBR2 phosphorylates peri-kappa B and inhibits the ubiquitination of SMAD3."
-  val entities0 = Array("B-Protein", "O", "B-Protein", "I-Protein", "O", "O", "O", "O", "O", "B-Protein", "O")
-  val sentence1 = "TGFBR2 binds to TGFBR1 and SMAD3."
-  val entities1 = Array("B-Protein", "O", "O", "B-Protein", "O", "B-Protein", "O")
-  // concatenate sentences
-  val text = s"$sentence0 $sentence1"
+object ToyDomainExample extends App {
+  // two example sentences
+  val text = """|TGFBR2 phosphorylates peri-kappa B and inhibits the ubiquitination of SMAD3.
+                |TGFBR2 binds to TGFBR1 and SMAD3.
+                |""".stripMargin
 
-  // rules are written in yaml and support yaml comments (start with the '#' character)
+  // rules are written in yaml and support yaml comments (starting with the '#' character)
   val rules = """| # this rule creates Protein mentions from named entity tags in IOB notation
                  |- name: rule1
                  |  label: Protein
                  |  type: token
                  |  pattern: |
-                 |    [entity='B-Protein'] [entity='I-Protein']*
+                 |    [entity='B-GENE'] [entity='I-GENE']*
                  |
                  | # this rule creates phosphorylation events
                  | # the arguments are Protein mentions
                  |- name: rule2
                  |  label: [Phosphorylation, Event]
                  |  pattern: |
-                 |    Trigger = [word=/^phospho/ & tag=/^VB/] (?! of)
+                 |    trigger = [word=/^phospho/ & tag=/^VB/]
                  |    theme: Protein = dobj
                  |    cause: Protein = nsubj
                  |
@@ -38,7 +33,7 @@ object TestMatcher extends App {
                  |    - Ubiquitination
                  |    - Event
                  |  pattern: |
-                 |    triggER = ubiquitination (?= of)
+                 |    trigger = ubiquitination
                  |    theme: Protein = prep_of
                  |
                  | # creates a regulation with a ubiquitination event as the theme
@@ -51,15 +46,14 @@ object TestMatcher extends App {
                  |
                  | # example of a surface rule that captures an event
                  | # note that you need to capture a trigger for this to be an event mention
-                 | # this event doesn't make sense biologically, is just an example
                  |- name: rule5
-                 |  label: XXXtestXXX
+                 |  label: DownRegulation
                  |  type: token
                  |  pattern: |
-                 |    @theme:Phosphorylation and (?<TriGgEr> inhibits) the @cause:Ubiquitination
+                 |    @theme:Phosphorylation and? (?<trigger> inhibits) the @cause:Ubiquitination
                  |
                  | # example of an argument with a quantifier
-                 | # with the '+' this rule finds a binding with 3 themes
+                 | # with the '+' this rule finds a single binding event with 3 themes
                  | # without the '+' this rule finds 3 bindings with 1 theme each
                  |- name: rule6
                  |  label: Binding
@@ -77,14 +71,13 @@ object TestMatcher extends App {
   // creates an extractor engine using the rules and the default actions
   val extractor = new ExtractorEngine(rules)
 
-  // annotate the sentences and override the named entity tags
+  // annotate the sentences
+  // note: in another domains, you might prefer an open-domain processor, such as CoreNLPProcessor
   val proc = new BioNLPProcessor
-  val doc = proc annotate text
-  doc.sentences(0).entities = Some(entities0)
-  doc.sentences(1).entities = Some(entities1)
+  val doc = proc.annotate(text)
 
-  // extract mentions from annotated document
-  val mentions = extractor extractFrom doc
+  // extract mentions from the annotated document
+  val mentions = extractor.extractFrom(doc)
 
   // code used for printing the found mentions
   for (m <- mentions) {

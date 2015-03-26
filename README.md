@@ -17,8 +17,8 @@ All the code that we write is licensed under Apache License Version 2.0. However
 Authors: [Mihai Surdeanu](http://surdeanu.info/mihai/), Marco Valenzuela, Gustave Hanh-Powell, Peter Jansen, Daniel Fried, Dane Bell, and Tom Hicks.
 
 # Changes
-+ **5.2-SNAPSHOT** - Version 2 of ODIN, including a cleaner (more declarative) rule language, which minimizes the need for custom actions.
-+ **5.1** - Improved tokenization for the bio domain. Replaced the BANNER NER for the bio domain with our own implementation.
++ **5.2** - Version 2 of ODIN, including a cleaner (more declarative) rule language, which minimizes the need for custom actions. See `edu.arizona.sista.odin.domains.toydomain` for an example of a toy domain, and `edu.arizona.sista.odin.domains.bigmechanism.dryrun2015` for a complete biomedical domain.
++ **5.1** - Improved tokenization for the bio domain. Replaced the BANNER NER for the bio domain with our own implementation. Installing BANNER is thus no longer necessary.
 + **5.0** - changed to Java 8, Scala 2.11, and CoreNLP 3.5.1. First public release of ODIN (domain-independent event extraction) framework, in the `edu.arizona.sista.odin` package. First release of ODIN's DARPA biomedical grammar. `FastNLPProcessor` now supports both the Malt and the new Stanford NN dependency parser (the Stanford parser is now the default setting).
 + **4.0** - added `BioNLPProcessor`. Install our fork of the [BANNER named entity recognizer](https://github.com/sistanlp/banner) before!
 + **3.3** - bug fix: make sure DocumentSerializer.load() works when multiple documents are serialized into the same file.
@@ -41,20 +41,20 @@ This software is available on Maven Central. To use, simply add the following de
     <dependency>
        <groupId>edu.arizona.sista</groupId>
        <artifactId>processors_2.11</artifactId>
-       <version>5.1</version>
+       <version>5.2</version>
     </dependency>
     <dependency>
        <groupId>edu.arizona.sista</groupId>
        <artifactId>processors_2.11</artifactId>
-       <version>5.1</version>
+       <version>5.2</version>
        <classifier>models</classifier>
     </dependency>
 
  The equivalent SBT dependencies are:
 
     libraryDependencies ++= Seq(
-        "edu.arizona.sista" %% "processors" % "5.1",
-        "edu.arizona.sista" %% "processors" % "5.1" classifier "models",
+        "edu.arizona.sista" %% "processors" % "5.2",
+        "edu.arizona.sista" %% "processors" % "5.2" classifier "models",
     )
 
 
