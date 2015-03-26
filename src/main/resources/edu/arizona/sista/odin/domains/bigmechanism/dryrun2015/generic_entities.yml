@@ -1,0 +1,32 @@
+- name: DT_not_determiner
+  label: Unresolved
+  priority: 3
+  type: token
+  pattern: |
+    #[tag=DT & !(incoming=det) & !(mention=/.*/)]
+    [tag=DT & !(incoming=det)]
+
+- name: Nstar_not_in_Nstar
+  label: Unresolved
+  priority: 3
+  type: token
+  pattern: |
+    #[tag=/^N/ & !(mention=/.*/)]
+    #[tag=/^N/ & !(incoming=/^nn/) & !(mention=/.*/)]
+    [tag=/^N/ & !(incoming=/^nn/)]
+
+- name: PRP
+  label: Unresolved
+  priority: 3
+  type: token
+  pattern: |
+    #[tag=/^PRP/ & !(mention=/.*/)]
+    [tag=/^PRP/]
+
+- name: word_protein
+  label: Unresolved
+  priority: 1
+  type: token
+  pattern: |
+    #[lemma=protein & !(mention=/.*/)]
+    [lemma=protein]

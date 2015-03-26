@@ -1,7 +1,5 @@
 package edu.arizona.sista.odin.domains.bigmechanism.dryrun2015
 
-import edu.arizona.sista.processors.Document
-import edu.arizona.sista.struct.Interval
 import edu.arizona.sista.odin._
 
 class DarpaActions extends Actions {

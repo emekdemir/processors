@@ -70,7 +70,8 @@ object Ruler {
   def readEntityRules(shell: Boolean = false): String = {
     val dir = if (shell) filesDir else resourcesDir
     val read = if (shell) readFile _ else readResource _
-    val files = Seq(s"$dir/default_entities.yml", s"$dir/DARPA_entities.yml")
+    //val files = Seq(s"$dir/default_entities.yml", s"$dir/DARPA_entities.yml")
+    val files = Seq(s"$dir/given_entities.yml")
     files map read mkString "\n\n"
   }
 
@@ -90,6 +91,13 @@ object Ruler {
         s"$dir/pos_reg_events.yml",
         s"$dir/transport_events.yml"
     )
+    files map read mkString "\n\n"
+  }
+
+  def readCorefRules(shell: Boolean = false): String = {
+    val dir = if (shell) filesDir else resourcesDir
+    val read = if (shell) readFile _ else readResource _
+    val files = Seq(s"$dir/generic_entities.yml")
     files map read mkString "\n\n"
   }
 
