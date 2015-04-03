@@ -31,7 +31,7 @@ class Ruler(val rules: String, val actions: Actions) {
         } else Nil
 
       // remove mentions of binding with single theme
-      case m: EventMention if m.label == "Binding" && m.arguments("theme").size == 1 => Nil
+      //case m: EventMention if m.label == "Binding" && m.arguments("theme").size == 1 => Nil
 
       case m if m.label.endsWith("egulation") => if (checkRegulationArgs(m)) Seq(m) else Nil
 
