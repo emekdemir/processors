@@ -14,7 +14,8 @@ object RulerShell extends App {
     val entityRules = Ruler.readEntityRules(shell=true)
     val ruleArgIndex = args.indexOf("--rules")
     val eventRules = if (ruleArgIndex == -1) Ruler.readEventRules(shell=true) else Ruler.readFile(args(ruleArgIndex + 1))
-    val rules = entityRules + "\n\n" + eventRules
+    val corefRules = Ruler.readCorefRules(shell=true)
+    val rules = entityRules + "\n\n" + eventRules + "\n\n" + corefRules
     val actions = new DarpaActions
     new Ruler(rules, actions)
   }
