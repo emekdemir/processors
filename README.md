@@ -10,7 +10,7 @@ that cherry picks fast components from multiple sources (Stanford and [MaltParse
 
 This software requires Java 1.8, Scala 2.11, and CoreNLP 3.x or higher.
 
-All the code that we write is licensed under Apache License Version 2.0. However, some of the libraries used here, most notably CoreNLP, are GPL.
+All our own code is licensed under Apache License Version 2.0. **However, some of the libraries used here, most notably CoreNLP, are GPL.** If not removed from this package, technically our whole code becomes GPL.
 
 (c) Mihai Surdeanu, 2013 -
 
@@ -289,8 +289,8 @@ This package also offers serialization code for the generated annotations. The t
     val serializer = new DocumentSerializer
     serializer.save(someAnnotation, pw)
 
-    // loading from an InputStream, is
-    val someAnnotation = serializer.load(is)
+    // loading from an BufferedReader, br
+    val someAnnotation = serializer.load(br)
 
 ### Serialization to/from Strings
 
