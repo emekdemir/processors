@@ -1,0 +1,76 @@
+- name: phospho_trigger
+  label: [Unresolved, Phosphorylation, Event]
+  priority: 4
+  type: token
+  pattern: |
+    (?<trigger> [lemma=/^(auto)?phosphorylation/ & tag=/^N/ & !(mention=/.*/)])
+
+- name: binding_trigger
+  label: [Unresolved, Binding, Event]
+  priority: 4
+  type: token
+  pattern: |
+    (?<trigger> [lemma=/binding|interaction|association|assembly|formation/ & tag=/^N/ & !(mention=/.*/)])
+
+- name: degrad_trigger
+  label: [Unresolved, Degradation, Event]
+  priority: 4
+  type: token
+  pattern: |
+    (?<trigger> [lemma=/degradation|proteolysis/ & tag=/^N/ & !(mention=/.*/)])
+
+- name: exchange_trigger
+  label: [Unresolved, Exchange, Event]
+  priority: 4
+  type: token
+  pattern: |
+    (?<trigger> [lemma=/^exchange/ & tag=/^N/ & !(mention=/.*/)])
+
+- name: hydrolysis_trigger
+  label: [Unresolved, Hydrolysis, Event]
+  priority: 4
+  type: token
+  pattern: |
+    (?<trigger> [lemma=/hydrolysis/ & tag=/^N/ & !(mention=/.*/)])
+
+- name: hydrox_trigger
+  label: [Unresolved, Hydroxylation, Event]
+  priority: 4
+  type: token
+  pattern: |
+    (?<trigger> [lemma=/hydroxylation/ & tag=/^N/ & !(mention=/.*/)])
+
+- name: transcription_trigger
+  label: [Unresolved, Transcription, Event]
+  priority: 4
+  type: token
+  pattern: |
+    (?<trigger> [lemma=/transcription|expression/ & tag=/^N/ & !(mention=/.*/)])
+
+- name: transport_trigger
+  label: [Unresolved, Transport, Event]
+  priority: 4
+  type: token
+  pattern: |
+    (?<trigger> [lemma=/translocation|transport|recruitment|export/ & tag=/^N/ & !(mention=/.*/)])
+
+- name: ubiq_trigger
+  label: [Unresolved, Ubiquitination, Event]
+  priority: 4
+  type: token
+  pattern: |
+    (?<trigger> [lemma=/ubiquitination/ & tag=/^N/ & !(mention=/.*/)])
+
+- name: posreg_trigger
+  label: [Unresolved, Positive_regulation, Event]
+  priority: 5
+  type: token
+  pattern: |
+    (?<trigger> [lemma=/induction|increase|up-regulation/ & tag=/^N/ & !(mention=/.*/)])
+
+- name: negreg_trigger
+  label: [Unresolved, Positive_regulation, Event]
+  priority: 5
+  type: token
+  pattern: |
+    (?<trigger> [lemma=/induction|increase|up-regulation/ & tag=/^N/ & !(mention=/.*/)])

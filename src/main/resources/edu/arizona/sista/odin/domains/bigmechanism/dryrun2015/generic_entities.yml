@@ -1,27 +1,23 @@
 - name: DT_not_determiner
   label: [Unresolved, BioChemicalEntity]
-  priority: 3
+  priority: 1
   type: token
   pattern: |
-    #[tag=DT & !(incoming=det) & !(mention=/.*/)]
-    [tag=DT & !(incoming=det)]
+    [tag=DT & word=/[a-zA-Z0-9]/ & !(incoming=det)]
 
 - name: Nstar_not_in_Nstar
   label: [Unresolved, BioChemicalEntity]
-  priority: 3
+  priority: 1
   type: token
   pattern: |
-    #[tag=/^N/ & !(mention=/.*/)]
-    [tag=/^N/ & !(incoming=/^nn/) & !(mention=/.*/)]
-    #[tag=/^N/ & !(incoming=/^nn/)]
+    [tag=/^N/ & word=/[a-zA-Z0-9]/ & !(incoming=/^nn/) & !(mention=/.*/)]
 
 - name: PRP
   label: [Unresolved, BioChemicalEntity]
-  priority: 3
+  priority: 1
   type: token
   pattern: |
-    #[tag=/^PRP/ & !(mention=/.*/)]
-    [tag=/^PRP/]
+    [tag=/^PRP/ & word=/[a-zA-Z0-9]/]
 
 #- name: word_protein
 #  label: [Unresolved, BioChemicalEntity]
@@ -31,79 +27,3 @@
 #    #[lemma=protein & !(mention=/.*/)]
 #    [lemma=protein]
 
-- name: phospho_trigger
-  label: [Unresolved, Phosphorylation, Event]
-  priority: 5
-  type: token
-  pattern: |
-    [lemma=/phosphorylation|autophosphorylation/ & tag=/^N/ & !(mention=/.*)]
-
-- name: binding_trigger
-  label: [Unresolved, Binding, Event]
-  priority: 5
-  type: token
-  pattern: |
-    [lemma=/binding|interaction|association|assembly|formation/ & tag=/^N/ & !(mention=/.*)]
-
-- name: degrad_trigger
-  label: [Unresolved, Degradation, Event]
-  priority: 5
-  type: token
-  pattern: |
-    [lemma=/degradation|proteolysis/ & tag=/^N/ & !(mention=/.*)]
-
-- name: exchange_trigger
-  label: [Unresolved, Exchange, Event]
-  priority: 5
-  type: token
-  pattern: |
-    [lemma=/exchange/ & tag=/^N/ & !(mention=/.*)]
-
-- name: hydrolysis_trigger
-  label: [Unresolved, Hydrolysis, Event]
-  priority: 5
-  type: token
-  pattern: |
-    [lemma=/hydrolysis/ & tag=/^N/ & !(mention=/.*)]
-
-- name: hydrox_trigger
-  label: [Unresolved, Hydroxylation, Event]
-  priority: 5
-  type: token
-  pattern: |
-    [lemma=/hydroxylation/ & tag=/^N/ & !(mention=/.*)]
-
-- name: transcription_trigger
-  label: [Unresolved, Transcription, Event]
-  priority: 5
-  type: token
-  pattern: |
-    [lemma=/transcription|expression/ & tag=/^N/ & !(mention=/.*)]
-
-- name: transport_trigger
-  label: [Unresolved, Transport, Event]
-  priority: 5
-  type: token
-  pattern: |
-    [lemma=/translocation|transport|recruitment|export/ & tag=/^N/ & !(mention=/.*)]
-
-- name: ubiq_trigger
-  label: [Unresolved, Ubiquitination, Event]
-  priority: 5
-  type: token
-  pattern: |
-    [lemma=/ubiquitination/ & tag=/^N/ & !(mention=/.*)]
-
-- name: posreg_trigger
-  label: [Unresolved, Positive_regulation, Event]
-  priority: 6
-  type: token
-  pattern: |
-    [lemma=/induction|increase|up-regulation/ & tag=/^N/ & !(mention=/.*)]
-
-- name: negreg_trigger
-  label: [Unresolved, Positive_regulation, Event]
-  priority: 6
-  type: token
-  pattern: |
-    [lemma=/induction|increase|up-regulation/ & tag=/^N/ & !(mention=/.*)]

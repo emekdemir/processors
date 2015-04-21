@@ -5,7 +5,7 @@ import edu.arizona.sista.struct.Interval
 import edu.arizona.sista.processors.Document
 import edu.arizona.sista.odin.impl.StringMatcher
 
-trait Mention extends Equals {
+trait Mention extends Equals with Ordered[Mention] {
   def labels: Seq[String]
   def tokenInterval: Interval
   def sentence: Int
@@ -31,6 +31,7 @@ trait Mention extends Equals {
 
   // returns all tokens in mention
   def words: Seq[String] = document.sentences(sentence).words.slice(start, end)
+  def tags: Seq[String] = document.sentences(sentence).tags.get.slice(start, end)
   def text: String = words.mkString(" ")
 
   override def canEqual(a: Any) = a.isInstanceOf[Mention]
@@ -38,6 +39,25 @@ trait Mention extends Equals {
   override def equals(that: Any): Boolean = that match {
     case that: Mention => that.canEqual(this) && this.hashCode == that.hashCode
     case _ => false
+  }
+
+  def compare(that: Mention): Int = {
+    require(this.document == that.document)
+
+    (this.sentence - that.sentence,
+      this.tokenInterval.start - that.tokenInterval.start,
+      this.tokenInterval.end - that.tokenInterval.end) match {
+      case (0,0,x) => x
+      case (0,x,_) => x
+      case (x,_,_) => x
+    }
+  }
+
+  def precedes(that: Mention): Boolean = {
+    this.compare(that) match {
+      case c if c < 0 => true
+      case _ => false
+    }
   }
 
   override def hashCode: Int = {
